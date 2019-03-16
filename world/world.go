@@ -40,11 +40,11 @@ var World = sWorld{
 	Maps: m.Maps{
 		X:      100,
 		Y:      100,
-		Border: 150,
+		Border: 125,
 	},
 	Sun: m.Sun{
-		X:         (0),
-		Y:         125,
+		X:         0,
+		Y:         75,
 		Intensity: 15,
 		Radius:    50,
 	},

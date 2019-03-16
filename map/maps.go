@@ -29,26 +29,36 @@ type Sun struct {
 
 // MoveSun функция движения солнца по квадрату.
 func (s *Sun) MoveSun(m Maps) {
-	if s.X < m.Border && s.Y == 0 { // (0-m.Border)
+
+	if s.X < m.Border && s.Y == 0 { // увеличиваем Х пока У = 0
+		(*s).X = s.X + 1
+	}
+	if s.X == m.Border && s.Y < m.Border { // Увеличиваем У пока Х == Border
+		(*s).Y = s.Y + 1
+	}
+	if s.X > 0 && s.Y == m.Border { // уменьшаем Х пока У == Border
+		(*s).X = s.X - 1
+	}
+	if s.X == 0 && s.Y > 0 { // уменьшаем У пока Х == Border
+		(*s).Y = s.Y - 1
+	}
+
+	if (s.X > m.Border && s.Y > 75) || (s.X < m.Border && s.Y > 75) {
+		(*s).Intensity = 0
+	} else {
+		(*s).Intensity = 15
+	}
+
+}
+
+/* формула
+	if s.X < m.Border && s.Y == 0 {
 		(*s).X = s.X + 1
 	}
 	if s.X == m.Border && s.Y < m.Border {
 		(*s).Y = s.Y + 1
 	}
-	if s.X > 0 && s.Y == m.Border { // (0-m.Border)
-		(*s).X = s.X - 1
-	}
-	if s.X == 0 && s.Y > 0 { // (0-m.Border) (0-m.Border)
-		(*s).Y = s.Y - 1
-	}
-
-}
-
-/*
-	if s.X == s.Radius && s.Y < s.Radius {
-		(*s).Y = s.Y + 1
-	}
-	if s.X > 0 && s.Y == s.Radius {
+	if s.X > 0 && s.Y == m.Border {
 		(*s).X = s.X - 1
 	}
 	if s.X == 0 && s.Y > 0 {
