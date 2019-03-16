@@ -2,12 +2,15 @@ package main
 
 import (
 	"dontstop/world"
+	"dontstop/wsServer"
 	"fmt"
 	"time"
 )
 
-func main() {
+// "dontstop/world"
 
+func main() {
+	go wsServer.Start()
 	frame()
 
 	defer fmt.Println("Program has been finished")
