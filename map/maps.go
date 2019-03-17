@@ -15,6 +15,13 @@ type Maps struct {
 	Border Coordinates
 }
 
+// DefaultMap - настройки карты
+var DefaultMap = Maps{
+	X:      100,
+	Y:      100,
+	Border: 150,
+}
+
 // Sun используется существами для питания
 // x         Coordinates положение по оси x
 // y         Coordinates положение по оси y
@@ -25,6 +32,14 @@ type Sun struct {
 	Y         Coordinates // положение по оси y
 	Intensity int         // интенсивность свечения
 	Radius    Coordinates // радиус свечения
+}
+
+// DefaultSun характеристики солнца
+var DefaultSun = Sun{
+	X:         0,
+	Y:         (DefaultMap.Border / 2),
+	Intensity: 15,
+	Radius:    0,
 }
 
 // MoveSun функция движения солнца по квадрату.
@@ -43,11 +58,37 @@ func (s *Sun) MoveSun(m Maps) {
 		(*s).Y = s.Y - 1
 	}
 
-	if (s.X > m.Border && s.Y > 75) || (s.X < m.Border && s.Y > 75) {
-		(*s).Intensity = 0
-	} else {
-		(*s).Intensity = 15
+	// уменьшение радиуса свечения солнца
+	if s.X == m.Border && s.Y > 0 {
+		if (s.X == m.Border && s.Y > 0) && (s.Y < (m.Border / 2)) {
+			(*s).Radius = s.Radius - 1
+		} else {
+			(*s).Radius = 0
+		}
 	}
+
+	// увиличение радиуса свечения солнца
+	if s.X == 0 && s.Y < (m.Border/2) {
+		if (s.X == 0 && s.Y < (m.Border/2)) && (s.Y > 0) {
+			(*s).Radius = s.Radius + 1
+		} else {
+			(*s).Radius = (DefaultMap.Border / 2)
+		}
+	}
+
+	//if (s.X > m.Border && s.Y > (m.Border/2)) || (s.X < m.Border && s.Y > (m.Border/2)) {
+	//	if (s.X == m.Border && s.Y > (m.Border/3)) && (s.Y < (m.Border / 2)) {
+	//		(*s).Radius = s.Radius - 1
+	//	} else {
+	//		(*s).Radius = 0
+	//	}
+	//} else {
+	//	if (s.X == m.Border && s.Y > (m.Border/3)) && (s.Y < (m.Border / 2)) {
+	//		(*s).Radius = s.Radius + 1
+	//	} else {
+	//		(*s).Radius = (DefaultMap.Border / 2)
+	//	}
+	//}
 
 }
 

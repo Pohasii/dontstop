@@ -1,91 +1,95 @@
 package world
 
 import (
+	b "dontstop/being"
 	m "dontstop/map"
-	//s "../statistics/statistics"
-	//"../being/being"
+	s "dontstop/statistics"
 )
 
-/*
-var maps maps.Maps = maps.Maps {
-	x = 100,
-	y = 100,
-	border = 150,
+// Statistics
+var Statistics = s.Statistics{
+	Live:          0,
+	Dead:          0,
+	AllObject:     0,
+	Predatory:     0,
+	Herbivores:    0,
+	Displacements: 0,
+	CurrentStep:   0,
+	Total:         0,
 }
 
-var statistics s.Statistics = s.Statistics {
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0
+type SWorld struct {
+	Status int
+	Maps   m.Maps
+	Sun    m.Sun
+	Units  []b.Units
 }
 
-var sun maps.Sun = maps.Sun{
-	x = 0,
-	y = 125,
-	intensity = 15,
-	radius   = 50,
-}
-*/
-type sWorld struct {
-	Maps m.Maps
-	Sun  m.Sun
+// World полностью мир
+var World = SWorld{}
+
+func initWorld(w *SWorld) {
+
+	(*w).Status = 1
+	(*w).Maps = m.Maps{
+		X:      m.DefaultMap.X,
+		Y:      m.DefaultMap.Y,
+		Border: m.DefaultMap.Border,
+	}
+
+	(*w).Sun = m.Sun{
+		X:         m.DefaultSun.X,
+		Y:         m.DefaultSun.Y,
+		Intensity: m.DefaultSun.Intensity,
+		Radius:    m.DefaultSun.Radius,
+	}
 }
 
-var World = sWorld{
-	Maps: m.Maps{
-		X:      100,
-		Y:      100,
-		Border: 125,
-	},
-	Sun: m.Sun{
-		X:         0,
-		Y:         75,
-		Intensity: 15,
-		Radius:    50,
-	},
+// CreateUnit - функция создания стартовых существ
+func CreateUnit(w *SWorld, count int) {
+
+	for i := 0; i < count; i++ {
+		t := b.NewUnits()
+		//fmt.Print(t)
+		if serachCord(t.X, t.Y, w.Units) {
+			(*w).Units = append(w.Units, *t)
+		}
+	}
+
 }
 
+// serachCord - функция проверки на занятость координат
+func serachCord(x m.Coordinates, y m.Coordinates, w []b.Units) bool {
+	for _, r := range w {
+		if r.X == x && r.Y == y {
+			return false
+		}
+	}
+	return true
+}
+
+// Update - функция обновления мира
 func Update() {
+	if World.Status == 0 {
+		initWorld(&World)
+		CreateUnit(&World, 10)
+	}
+	//fmt.Print(World)
 	World.Sun.MoveSun(World.Maps)
 }
 
-// var units []being.Units = make( []being.Units, 1)
-
 /*
-
-if(l<200 && t==0) div.style.left = l+1+'px';
-08
-    if(l==200 && t<200) div.style.top = t+1+'px';
-09
-    if(l>0 && t==200) div.style.left = l-1+'px';
-10
-    if(l==0 && t>0) div.style.top = t-1+'px';
-
-
-var currentAngle = 0; // текущее значение угла
-var radius = 100; // радиус окружности
-var baseX = 200; // x координата центра окружности
-var baseY = 200; // y координата центра окружности
-
-// считаем косинус текущего значения угла
-    // и умножаем на значение радиуса
-    var vx = Math.cos(currentAngle) * radius;
-
-    // считаем синус текущего значения угла
-    // и умножаем на значение радиуса
-    var vy = Math.sin(currentAngle) * radius;
-
-    context.fillStyle = '#fff'; // устанавливаем цвет заливки в белый
-
-    context.fillRect(baseX + vx, baseY + vy, 5, 5);
-    // считем новую позицию по x и y относительно центра окружности
-    // и заливаем ее квадратиком высотой и шириной в 5 пикселей
-
-    // увеличиваем значение угла
-		currentAngle += 0.1;
+Status: 0,
+	Maps: m.Maps{
+		X:      m.DefaultMap.X,
+		Y:      m.DefaultMap.Y,
+		Border: m.DefaultMap.Border,
+	},
+	Sun: m.Sun{
+		X:         m.DefaultSun.X,
+		Y:         m.DefaultSun.Y,
+		Intensity: m.DefaultSun.Intensity,
+		Radius:    m.DefaultSun.Radius,
+	},
+}
 */
