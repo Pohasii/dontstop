@@ -17,9 +17,9 @@ type Maps struct {
 
 // DefaultMap - настройки карты
 var DefaultMap = Maps{
-	X:      100,
-	Y:      100,
-	Border: 150,
+	X:      1000,
+	Y:      1000,
+	Border: 1050,
 }
 
 // Sun используется существами для питания
@@ -41,6 +41,29 @@ var DefaultSun = Sun{
 	Intensity: 15,
 	Radius:    0,
 }
+
+/*
+// GridCoordinates сетка координат
+// по формуле X + Y (string) = X + Y (Coordinates)
+var GridCoordinates map[string]Coordinates = installGrid()
+
+// installGrid - функция инициализации map GridCoordinates
+func installGrid() map[string]Coordinates {
+	var x Coordinates = 0
+	var y Coordinates = 0
+	var res map[string]Coordinates
+	var resName string
+
+	for x = 0; x < DefaultMap.X; x++ {
+		for y = 0; y < DefaultMap.Y; y++ {
+			resName = fmt.Sprint(x) + fmt.Sprint(x)
+			res[resName] = x + y
+		}
+	}
+
+	return res
+}
+*/
 
 // MoveSun функция движения солнца по квадрату.
 func (s *Sun) MoveSun(m Maps) {

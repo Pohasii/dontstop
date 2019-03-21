@@ -1,7 +1,7 @@
 package main
 
 import (
-	"dontstop/cicle"
+	"dontstop/cycle"
 	"dontstop/world"
 	"dontstop/wsServer"
 	"fmt"
@@ -11,7 +11,7 @@ import (
 
 func main() {
 
-	go cicle.Frame(world.World, 6)
+	go cycle.Frame(world.World, 6)
 	wsServer.Start()
 
 	defer fmt.Println("Program has been finished")

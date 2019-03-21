@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+// работающий эххо сервер
 // address
 // IP and PORT
 var address string = "192.168.0.101:8085"

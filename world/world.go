@@ -72,9 +72,12 @@ func serachCord(x m.Coordinates, y m.Coordinates, w []b.Units) bool {
 func Update() {
 	if World.Status == 0 {
 		initWorld(&World)
-		CreateUnit(&World, 10)
+		CreateUnit(&World, 15000)
 	}
 	//fmt.Print(World)
+	for i, _ := range World.Units {
+		World.Units[i].MoveUnit()
+	}
 	World.Sun.MoveSun(World.Maps)
 }
 

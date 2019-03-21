@@ -15,23 +15,23 @@ type hp float64
 // two   int второй
 // three int третий
 
-// defaultHp - стартовый размер здоровья при генерации существа
-var defaultHp hp = 500
+// DefaultHp - стартовый размер здоровья при генерации существа
+var DefaultHp hp = 500
 
-// defaultLiveStatus - стартовый статус существа
-var defaultLiveStatus int = 1
+// DefaultLiveStatus - стартовый статус существа
+var DefaultLiveStatus int = 1
 
-// defaultColor - стартовый цвет
-var defaultColor color = color{185, 244, 66}
+// DefaultColor - стартовый цвет
+var DefaultColor color = color{185, 244, 66}
 
-// defaultSize - стартовый размер существа // пикселей
-var defaultSize int = 15
+// DefaultSize - стартовый размер существа // пикселей
+var DefaultSize int = 15
 
-// defaultEnergy - стартовый размер энергии
-var defaultEnergy int = 100
+// DefaultEnergy - стартовый размер энергии
+var DefaultEnergy int = 100
 
-// defaultAge - стартовый возраст :)
-var defaultAge int = 0
+// DefaultAge - стартовый возраст :)
+var DefaultAge int = 0
 
 // color - структура RGB для цвета существа
 type color struct {
@@ -75,6 +75,21 @@ var ListColor = colors{
 	a6: color{255, 0, 0},
 }
 
+// Memory - память, записывает занято/свободно место
+// вокруг юнита и шаг на котором проводился анализ пространства
+type Memory struct {
+	UpLeft    int
+	UpMid     int
+	UpRight   int
+	MidLeft   int
+	MidMid    int
+	MidRight  int
+	DownLeft  int
+	DownMid   int
+	DownRight int
+	Step      int
+}
+
 // Units структура существа
 // heals      hp               // здоровье
 // y          maps.Coordinates // положение по y
@@ -93,31 +108,19 @@ type Units struct {
 	Size       int              // размер существа
 	Energy     int              // количество энергии
 	Age        int              // возраст
+	Memory     Memory
 }
 
 // Start - создает структуру существа с стартовыми статами
 func NewUnits() *Units {
 	var u = &Units{}
-	u.Heals = defaultHp
+	u.Heals = DefaultHp
 	u.Y = maps.Coordinates(f.Rand(int(maps.DefaultMap.X)))
 	u.X = maps.Coordinates(f.Rand(int(maps.DefaultMap.X)))
-	u.LiveStatus = defaultLiveStatus
-	u.Color = defaultColor
-	u.Size = defaultSize
-	u.Energy = defaultEnergy
-	u.Age = defaultAge
+	u.LiveStatus = DefaultLiveStatus
+	u.Color = DefaultColor
+	u.Size = DefaultSize
+	u.Energy = DefaultEnergy
+	u.Age = DefaultAge
 	return u
 }
-
-/*
-{
-	Heals:      defaultHp,
-	Y:          maps.Coordinates(Rand(int(maps.DefaultMap.X))),
-	X:          maps.Coordinates(Rand(int(maps.DefaultMap.X))),
-	LiveStatus: defaultLiveStatus,
-	Color:      defaultColor,
-	Size:       defaultSize,
-	Energy:     defaultEnergy,
-	Age:        defaultAge,
-}
-*/
