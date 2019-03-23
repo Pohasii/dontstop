@@ -1,7 +1,7 @@
 package being
 
 import (
-	c "dontstop/cycle"
+	// c "dontstop/cycle"
 	f "dontstop/functions"
 	maps "dontstop/map"
 	"math"
@@ -39,7 +39,7 @@ func (u *Units) LookAround(list []Units) {
 			x := f.MathSign(int(list[i].X - u.X))
 			y := f.MathSign(int(list[i].Y - u.Y))
 
-			LookAroundRS(x, y, u*Units)
+			LookAroundRS(x, y, u)
 		}
 	}
 
@@ -89,5 +89,5 @@ func LookAroundRS(x int, y int, u *Units) {
 		u.Memory.MidLeft = 1
 	}
 
-	u.Memory.Step = c.Step
+	//u.Memory.Step = c.Step
 }

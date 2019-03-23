@@ -2,7 +2,6 @@ package cycle
 
 import (
 	"dontstop/world"
-	"fmt"
 	"time"
 )
 
@@ -53,7 +52,7 @@ func Frame(thisWorld world.SWorld, speed float64) {
 // sender функция где будет отправляться состояние мира на клиен
 func sender(Step float64, time time.Time) {
 
-	fmt.Println(" value:", Step)
-	fmt.Println(" Sun:", world.World.Sun)
+	//fmt.Println(" value:", Step)
+	//fmt.Println(" Sun:", world.World.Sun)
 	//fmt.Println(" full map:", world.World)
 }
